@@ -22,7 +22,7 @@ Install [R](https://www.r-project.org/) and [PostGIS](https://postgis.net/instal
 
 The contents of the `subway_data_clean` table I used for my post are available for download from a requester pays Amazon S3 bucket:
 
-https://s3.amazonaws.com/nyc-subway-data/subway_data_clean.csv.gz
+https://s3.amazonaws.com/nyc-subway-data/subway_data.csv.gz
 
 [See here](https://docs.aws.amazon.com/AmazonS3/latest/dev/ObjectsinRequesterPaysBuckets.html) for instructions on how to download from a requester pays S3 bucket. The data is from January 2018 to May 2018, and around 1 GB uncompressed.
 
