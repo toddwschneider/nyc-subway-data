@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.5.1'
+ruby '2.5.3'
 
 git_source(:github) do |repo_name|
   repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
@@ -14,7 +14,7 @@ gem 'delayed_job_active_record', '~> 4.1'
 gem 'foreman', '~> 0.63'
 gem 'httparty', '~> 0.15'
 gem 'paper_trail', '~> 8.1'
-gem 'pg', '~> 0.18'
+gem 'pg', '~> 1.1'
 gem 'protobuf', '~> 3.8', require: 'protobuf'
 gem 'puma', '~> 3.7'
 gem 'rubyzip', '~> 1.2'
