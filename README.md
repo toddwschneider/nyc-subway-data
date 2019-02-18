@@ -2,7 +2,7 @@
 
 A Rails app to collect data from the [MTA's real-time data feeds](http://datamine.mta.info/). Additional SQL and R analysis scripts/instructions are included in the `analysis/` subfolder.
 
-Code used in support of the post "[Using Countdown Clock Data to Understand the New York City Subway](http://toddwschneider.com/posts/nyc-subway-data-analysis/)"
+Code used in support of the post "[Using Countdown Clock Data to Understand the New York City Subway](https://toddwschneider.com/posts/nyc-subway-data-analysis/)"
 
 ## Setup
 
