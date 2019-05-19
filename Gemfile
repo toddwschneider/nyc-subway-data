@@ -1,19 +1,19 @@
 source 'https://rubygems.org'
 
-ruby '2.5.3'
+ruby '2.6.3'
 
 git_source(:github) do |repo_name|
   repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
   "https://github.com/#{repo_name}.git"
 end
 
-gem 'rails', '~> 5.1.5'
+gem 'rails', '~> 5.2.3'
 
 gem 'clockwork', '~> 2.0'
 gem 'delayed_job_active_record', '~> 4.1'
 gem 'foreman', '~> 0.63'
 gem 'httparty', '~> 0.15'
-gem 'paper_trail', '~> 8.1'
+gem 'paper_trail', '~> 10.3'
 gem 'pg', '~> 1.1'
 gem 'protobuf', '~> 3.8', require: 'protobuf'
 gem 'puma', '~> 3.7'
