@@ -17,7 +17,7 @@ gem 'paper_trail', '~> 10.3'
 gem 'pg', '~> 1.1'
 gem 'protobuf', '~> 3.8', require: 'protobuf'
 gem 'puma', '~> 3.7'
-gem 'rubyzip', '~> 1.2'
+gem 'rubyzip', '~> 1.3'
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 
