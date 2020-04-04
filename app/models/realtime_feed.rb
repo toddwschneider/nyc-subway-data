@@ -1,4 +1,5 @@
 class RealtimeFeed < ApplicationRecord
+  API_BASE_URL = "https://api-endpoint.mta.info/Dataservice/mtagtfsfeeds/nyct%2F"
   HISTORICAL_DATA_BASE_URL = "https://datamine-history.s3.amazonaws.com"
   HISTORICAL_DATA_PREFIXES = {
     1 => "gtfs",
@@ -6,6 +7,7 @@ class RealtimeFeed < ApplicationRecord
   }
 
   validates :mta_id, presence: true, uniqueness: true
+  validates :old_mta_id, presence: true, uniqueness: true
 
   has_many :observations,
     class_name: "RealtimeFeedObservation",
@@ -14,12 +16,11 @@ class RealtimeFeed < ApplicationRecord
   has_many :routes
 
   def url
-    query = {key: ENV.fetch("MTA_KEY"), feed_id: mta_id}.to_query
-    "http://datamine.mta.info/mta_esi.php?#{query}"
+    "#{API_BASE_URL}#{mta_id}"
   end
 
   def fetch_data
-    data = HTTParty.get(url).body
+    data = HTTParty.get(url, headers: auth_headers).body
     TransitRealtime::FeedMessage.decode(data)
   end
 
@@ -74,4 +75,10 @@ class RealtimeFeed < ApplicationRecord
     end
   end
   handle_asynchronously :backfill_historical_realtime_data, priority: 20
+
+  private
+
+  def auth_headers
+    {"x-api-key" => ENV.fetch("MTA_KEY")}
+  end
 end

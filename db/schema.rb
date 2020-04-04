@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180107173339) do
+ActiveRecord::Schema.define(version: 2020_04_04_140412) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -87,10 +87,12 @@ ActiveRecord::Schema.define(version: 20180107173339) do
   end
 
   create_table "realtime_feeds", force: :cascade do |t|
-    t.integer "mta_id", null: false
+    t.integer "old_mta_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "mta_id", null: false
     t.index ["mta_id"], name: "index_realtime_feeds_on_mta_id", unique: true
+    t.index ["old_mta_id"], name: "index_realtime_feeds_on_old_mta_id", unique: true
   end
 
   create_table "realtime_trips", force: :cascade do |t|
