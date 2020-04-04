@@ -1,14 +1,14 @@
 # NYC Subway Data
 
-A Rails app to collect data from the [MTA's real-time data feeds](http://datamine.mta.info/). Additional SQL and R analysis scripts/instructions are included in the `analysis/` subfolder.
+A Rails app to collect data from the [MTA's real-time data feeds](https://api.mta.info/). Additional SQL and R analysis scripts/instructions are included in the `analysis/` subfolder.
 
-Code used in support of the post "[Using Countdown Clock Data to Understand the New York City Subway](https://toddwschneider.com/posts/nyc-subway-data-analysis/)"
+Code used in support of the post [Using Countdown Clock Data to Understand the New York City Subway](https://toddwschneider.com/posts/nyc-subway-data-analysis/)
 
 ## Setup
 
 Assumes Ruby, Rails, and PostgreSQL are all installed
 
-1. Register for an MTA API key at http://datamine.mta.info/user/register
+1. Register for an MTA API key at https://api.mta.info/#/signup
 2. Copy the `.sample.env` file to `.env` in the project root, and edit it to set the `MTA_KEY` to the key you just obtained
 3. `bundle exec rake db:setup` will create a database and populate it with the MTA's static [GTFS data](https://developers.google.com/transit/gtfs/examples/gtfs-feed), which is downloaded automatically from http://web.mta.info/developers/data/nyct/subway/google_transit.zip
 
@@ -27,13 +27,13 @@ The clock process queues up jobs every minute to ping the MTA's feeds, and the w
 
 For an overview, check out:
 
-- The [MTA's documentation](http://datamine.mta.info/sites/all/files/pdfs/GTFS-Realtime-NYC-Subway%20version%201%20dated%207%20Sep.pdf)
+- The MTA's documentation [here](https://datamine.mta.info/sites/all/files/pdfs/GTFS-Realtime-NYC-Subway%20version%201%20dated%207%20Sep.pdf) and [here](https://api.mta.info/#/HelpDocument)
 - The [GTFS Realtime](https://developers.google.com/transit/gtfs-realtime/) spec
 - The [GTFS Static](https://developers.google.com/transit/gtfs/) spec
 
 The API responses are stored as JSON in the `realtime_feed_observations` table. When a realtime observation is "processed", it is broken out into the `realtime_trips`, `stop_time_updates`, and `vehicle_positions` tables.
 
-`realtime_trips` is supposed to contain one row for each unique train. In practice it probably overcounts trains, as the data is generally unreliable, trains don't have canonical IDs, and the various identifiers they do have sometimes change from minute to minute. The [MTA GTFS-realtime reference](http://datamine.mta.info/sites/all/files/pdfs/GTFS-Realtime-NYC-Subway%20version%201%20dated%207%20Sep.pdf) provides guidance on determining unique trains, but I used my own logic in the `RealtimeFeedObservation#find_or_create_realtime_trip_from_entity` method. Note that at analysis time, I attempted to merge duplicate records in the `realtime_trips` table, see `analysis/merge_trips.sql`. Also note that the MTA has a list of scheduled trips—populated in the `scheduled_trips` table—but the actual trips that show up in the `realtime_trips` table usually do not share IDs with the `scheduled_trips` records.
+`realtime_trips` is supposed to contain one row for each unique train. In practice it probably overcounts trains, as the data is generally unreliable, trains don't have canonical IDs, and the various identifiers they do have sometimes change from minute to minute. The [MTA GTFS-realtime reference](https://datamine.mta.info/sites/all/files/pdfs/GTFS-Realtime-NYC-Subway%20version%201%20dated%207%20Sep.pdf) provides guidance on determining unique trains, but I used my own logic in the `RealtimeFeedObservation#find_or_create_realtime_trip_from_entity` method. Note that at analysis time, I attempted to merge duplicate records in the `realtime_trips` table, see `analysis/merge_trips.sql`. Also note that the MTA has a list of scheduled trips—populated in the `scheduled_trips` table—but the actual trips that show up in the `realtime_trips` table usually do not share IDs with the `scheduled_trips` records.
 
 The `stop_time_updates` table includes, for each observed train, a list of its upcoming stops and their estimated arrival/departure times. This appears to be the information used on the subway platform countdown clocks.
 
