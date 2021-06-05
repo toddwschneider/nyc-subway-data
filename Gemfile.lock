@@ -119,7 +119,8 @@ GEM
       thor
       thread_safe
     public_suffix (4.0.6)
-    puma (3.12.6)
+    puma (4.3.8)
+      nio4r (~> 2.0)
     racc (1.5.2)
     rack (2.2.3)
     rack-test (1.1.0)
@@ -215,7 +216,7 @@ DEPENDENCIES
   paper_trail (~> 10.3)
   pg (~> 1.1)
   protobuf (~> 3.8)
-  puma (~> 3.12)
+  puma (~> 4.3)
   rails (~> 5.2.3)
   rubyzip (~> 1.3)
   sass-rails (~> 5.0)
